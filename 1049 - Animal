@@ -1,0 +1,65 @@
+// O código foi corrigido para usar strcmp ao comparar strings, o que é necessário em C, 
+//já que o operador == não funciona para comparar o conteúdo de strings. Além disso, o operador 
+//de endereço & foi removido de scanf, pois não é necessário ao lidar com arrays de caracteres. 
+
+int main(){
+
+    char primeiro[20], segundo[20], terceiro[20];
+
+    scanf("%s", primeiro);
+    scanf("%s", segundo);
+    scanf("%s", terceiro);
+
+    if(strcmp(primeiro, "vertebrado") == 0)
+    {
+        if(strcmp(segundo, "ave") == 0)
+        {
+            if(strcmp(terceiro, "carnivoro") == 0)
+            {
+                printf("aguia\n");
+            }
+            else if(strcmp(terceiro, "onivoro") == 0)
+            {
+                printf("pomba\n");
+            }
+        }
+        else if(strcmp(segundo, "mamifero") == 0)
+        {
+            if(strcmp(terceiro, "onivoro") == 0)
+            {
+                printf("homem\n");
+            }
+            else if(strcmp(terceiro, "herbivoro") == 0)
+            {
+                printf("vaca\n");
+            }
+        }
+    }
+    else if(strcmp(primeiro, "invertebrado") == 0)
+    {
+        if(strcmp(segundo, "inseto") == 0)
+        {
+            if(strcmp(terceiro, "hematofago") == 0)
+            {
+                printf("pulga\n");
+            }
+            else if(strcmp(terceiro, "herbivoro") == 0)
+            {
+                printf("lagarta\n");
+            }
+        }
+        else if(strcmp(segundo, "anelideo") == 0)
+        {
+            if(strcmp(terceiro, "hematofago") == 0)
+            {
+                printf("sanguessuga\n");
+            }
+            else if(strcmp(terceiro, "onivoro") == 0)
+            {
+                printf("minhoca\n");
+            }
+        }
+
+    }
+    return 0;
+}
