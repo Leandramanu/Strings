@@ -1,0 +1,35 @@
+Solução
+Primeiro aspecto importante desse problema é confiar que o tamanho das strings está 
+sempre correto, ou seja, os tamanhos só podem ser 3 ou 5. Com esse conhecimento,
+vemos rapidamente então que se o tamanho é 5, então a resposta é 3. Entretanto, 
+se o tamanho é 3, então é preciso verificar cada letra para ver se a palavra é mais 
+semelhante à palavra "one" ou à palavra "two". No caso da minha solução, 
+foquei na palavra "one" e tudo que não tiver mais do que 1 
+semelhança com "one" é classificado como "two".
+
+#include <string.h>
+#include <stdio.h>
+
+int main(){
+    int palavras, semelhancas;
+    char palavra[11], *um = "one";
+
+    scanf("%d\n", &palavras);
+
+    for(int i = 0; i < palavras; ++i){
+        scanf("%s\n", &palavra);
+
+        if(strlen(palavra) == 5)    printf("3\n");
+        else{
+            semelhancas = 0;
+            for(int j = 0; j < 3; ++j){
+                if(palavra[j] == um[j]) ++semelhancas;
+            }
+
+            if(semelhancas > 1) printf("1\n");
+            else                printf("2\n");
+        }
+    }
+
+    return 0;
+}
