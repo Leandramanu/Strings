@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <string.h>  // Para funções de manipulação de strings como strcspn, strcpy
+
+int main() {
+    char texto[101], maiorPalavra[101], temp[101];  // Declaração de variáveis
+    int qtsCarac[101], maior = 0;  // vetor para armazenar o número de caracteres de cada palavra e variável para a maior palavra
+    unsigned short caracteres, i, j, k;  // Variáveis auxiliares para contagem e controle de posições
+
+    // O loop principal vai rodar até o usuário inserir '0' para encerrar
+    while (1) {
+        // Lê a linha inteira, incluindo espaços (fgets é ideal para isso)
+        fgets(texto, sizeof(texto), stdin);
+        
+        // Remove o caractere de nova linha que fgets captura
+        texto[strcspn(texto, "\n")] = '\0';  
+
+        // Se o usuário digitar '0', o programa para
+        if (strcmp(texto, "0") == 0)
+            break;
+
+        i = 0;  // Índice para percorrer a string 'texto'
+        j = 0;  // Índice para a palavra temporária 'temp'
+        k = 0;  // Índice para contar quantas palavras temos
+        caracteres = 0;  // Contador de caracteres de cada palavra
+
+        // Percorre toda a string 'texto' caractere por caractere
+        while (texto[i]) {
+            // Vai até o espaço ou o final da string, formando a palavra
+            while (texto[i] != ' ' && texto[i] != '\0') {
+                temp[j++] = texto[i++];  // Copia o caractere para 'temp' e incrementa os índices
+                caracteres++;  // Incrementa o contador de caracteres da palavra
+            }
+            temp[j] = '\0';  // Adiciona o caractere nulo para finalizar a string temporária
+            qtsCarac[k++] = caracteres;  // Armazena a quantidade de caracteres da palavra no vetor qtsCarac
+
+            // Atualiza a maior palavra se a atual for maior ou igual
+            if (caracteres >= maior) {
+                maior = caracteres;  // Atualiza o valor de 'maior' com o tamanho da nova maior palavra
+                strcpy(maiorPalavra, temp);  // Copia a palavra atual para 'maiorPalavra'
+            }
+
+            // Se encontrar um espaço, apenas incrementa o índice para pular o espaço
+            if (texto[i] == ' ')
+                i++;
+
+            j = 0;  // Reseta o índice da palavra temporária
+            caracteres = 0;  // Reseta o contador de caracteres para a próxima palavra
+        }
+
+        // Imprime a quantidade de caracteres de cada palavra, separando com hífens
+        for (int l = 0; l < k; l++) {
+            if (l != 0)
+                printf("-");  // Adiciona o hífen entre as quantidades
+            printf("%d", qtsCarac[l]);  // Imprime o número de caracteres da palavra
+        }
+        printf("\n");  // Pula uma linha após imprimir as quantidades de caracteres
+
+    }
+
+    // Após sair do loop, imprime a maior palavra encontrada
+    printf("\nThe biggest word: %s\n", maiorPalavra);
+
+    return 0;  // Finaliza o programa
+}
