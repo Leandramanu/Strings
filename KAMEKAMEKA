@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+
+void processarPalavra(char *entrada, char *saida) {
+    unsigned short contador = 0, aux;
+    char *ptr = entrada;
+
+    // A primeira posição da string de saída recebe o caractere 'k';
+    *(saida++) = 'k';
+
+    // Conta quantos caracteres 'a' existem na primeira parte da string de entrada;
+    while (*ptr == 'a') {
+        ptr++;
+        contador++;
+    }
+
+    // Avança até a próxima sequência de 'a's
+    while (*ptr != 'a' && *ptr != '\0') {
+        ptr++;
+    }
+
+    // Se a quantidade de caracteres 'a' na primeira parte foi igual a 1
+    // Então a quantidade de 'a' na string de saída é igual a da segunda parte da string de entrada;
+    if (contador == 1) {
+        while (*ptr == 'a') {
+            *(saida++) = *(ptr++);
+        }
+        *saida = '\0';
+    } else {
+        // Caso contrário, cada 'a' da segunda parte da string de entrada vale a quantidade de 'a' da primeira parte;
+        while (*ptr == 'a') {
+            aux = contador;
+            while (aux-- > 0) {
+                *(saida++) = 'a';
+            }
+            ptr++;
+        }
+        *saida = '\0';
+    }
+}
+
+int main() {
+    char palavra[201], saida[100000];
+    unsigned short casos;
+
+    scanf("%hu", &casos);
+
+    while (casos--) {
+        scanf(" %s", palavra);
+
+        // Para não perder tempo, caso a string de entrada seja a string base "hamekame"
+        // a resposta será apenas "ka" sem precisar chamar a função que resolve isso;
+        if (strcmp(palavra, "hamekame") == 0) {
+            printf("ka\n");
+        } else {
+            processarPalavra(palavra, saida);
+            printf("%s\n", saida);
+        }
+    }
+
+    return 0;
+}
